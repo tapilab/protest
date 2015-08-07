@@ -204,31 +204,34 @@ A Logistic Regression (LG) classifier was built, trained it with coded tweets, a
 
 A Logistic Regression classifier was used in Python language, which is responsible to predict the labels of all organic tweets; the set of labelled tweets were used as our training set. In order to have a better accuracy for the classifier, we used a grid search to check the best values for "Penalty" and "C", which are parameters of LG. Running the grid search we found out that Penalty = L2 and C = 2.6 is the best configuration for our LG model. Figure \ref{figura:para} shows the accuracy versus C parameter, and we can see that the accuracy is higher when C is equal to 2.6.
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{C_parameter.png}
-\centering
-\caption{C Parameter}
-\label{figura:para}
-\end{figure}
+%\begin{figure}[t]
+%\includegraphics[width=\columnwidth]{C_parameter.png}
+%\centering
+%\caption{C Parameter}
+%\label{figura:para}
+%\end{figure}
 
 Our best classifier configuration has the accuracy of 81.8\%. The confusion matrix of the model is shown in the Figure \ref{figura:matrix}, and Table \ref{tab:measure} shows precision, recall and F-score values for both classes. As we can notice the percentage of retrieved tweets that are relevant is 90\% what is seen as a good value for our assignment.
 
-\begin{table}[httbp]
-\caption{Classification Quality Measure}
+\begin{table}[t]
+\caption{Cross-validation classification accuracy \label{tab:measure}}
 \centering
-\begin{tabular}{ | l | l | l | }
-\hline
-\textbf{Measure} & \textbf{Negative Class} & \textbf{Positive Class}\\
-\hline
-Precision & 0.89745403 & 0.90614334\\
-\hline
-Recall & 0.95845921 & 0.78550296 \\
-\hline
-F-score & 0.92695398 & 0.84152139\\
-\hline
-\end{tabular}
-\label{tab:measure}
+\input{nb/cv.tex}
 \end{table}
+
+%\begin{tabular}{ | l | l | l | }
+%\hline
+%\textbf{Measure} & \textbf{Negative Class} & \textbf{Positive Class}\\
+%\hline
+%Precision & 0.89745403 & 0.90614334\\
+%\hline
+%Recall & 0.95845921 & 0.78550296 \\
+%\hline
+%F-score & 0.92695398 & 0.84152139\\
+%\hline
+%\end{tabular}
+%\label{tab:measure}
+%\end{table}
 
 \begin{figure}[t]
 \includegraphics[width=\columnwidth]{matrix.png}
@@ -250,12 +253,9 @@ The top and bottom words of the classes are shown in the Table \ref{tab:coef}. T
 \centering
 \caption{Top Coefficients of Classifier}
 \label{tab:coef}
-\begin{tabular}{|r|l| }
+\begin{tabular}{|r|p{14cm}| }
 \hline
-{\bf Positive class} & my, i, vaping, vape, green, buy, cig, tastes, smokin, taste, got, we, good, coolest, me\\
-\hline
-{\bf Negative class} & URL, retail, cigarettes, he, smokes, stores, everyone, de, kid, you, as, if, dallas, ego, ni\\
-\hline
+\input{nb/coef.tex}
 \end{tabular}
 \end{table*}
 
