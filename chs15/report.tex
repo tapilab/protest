@@ -62,7 +62,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Analyzing e-cigarette sentiment on Twitter}
+\title{An analysis of e-cigarette sentiment and demographics on Twitter}
 %
 % You need the command \numberofauthors to handle the 'placement
 % and alignment' of the authors beneath the title.
@@ -115,10 +115,10 @@ Elaine Cristina Resende and Aron Culotta\\
 % author on the opening page (as the 'third row') but we ask,
 % for aesthetic reasons that you place these 'additional authors'
 % in the \additional authors block, viz.
-\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
-email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
-(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{30 July 1999}
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+%\date{30 July 1999}
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
@@ -157,12 +157,6 @@ Tweets were collected through keywords about electronic cigarettes (e-cigarette,
 
 Aiming to analyze the sentiment of users we need to work just with organic tweets, so we have selected just organic tweets which represent (21.39\%) of the data. Figure \ref{figura:total} shows the number of tweets (y axis) by month (x axis). The green line refers to organic tweets and blue line to all tweets. We can see that there is a big spike in March and also an increase in the months of May and September.
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{111.png}
-\caption{Number of Tweets by month}
-\centering
-\label{figura:total}
-\end{figure}
 
 A random sample of 2000 collected tweets, from the set of organic tweets, were manually labelled as positive, negative and neutral. Each tweet was put in one class according to the following:
 \begin{itemize}
@@ -191,6 +185,22 @@ Table \ref{tab:labelsample} describes some examples of our training data with tw
 %\end{adjustbox}
 \end{table*}
 
+\begin{table}[t]
+\caption{Cross-validation classification accuracy \label{tab:measure}}
+\centering
+\input{nb/cv.tex}
+\end{table}
+
+\begin{table*}[t]
+\centering
+\caption{Top Coefficients of Classifier}
+\label{tab:coef}
+\begin{tabular}{|r|p{14cm}| }
+\hline
+\input{nb/coef.tex}
+\end{tabular}
+\end{table*}
+
  
 For this analysis we have joint negative and neutral tweets because we are more interested in the positive, in other words, telling that you use e-cigs is more important then just criticism or marketing campaigns. So, at this point we have 676 (33.8\%) tweets classified as positive and 1324 (66.2\%) as negative. The coded set of tweets was used to train a machine learning classifier using Logistic Regression algorithm, and the built model was applied to the full set of organic tweets.
 
@@ -213,11 +223,6 @@ A Logistic Regression classifier was used in Python language, which is responsib
 
 Our best classifier configuration has the accuracy of 81.8\%. The confusion matrix of the model is shown in the Figure \ref{figura:matrix}, and Table \ref{tab:measure} shows precision, recall and F-score values for both classes. As we can notice the percentage of retrieved tweets that are relevant is 90\% what is seen as a good value for our assignment.
 
-\begin{table}[t]
-\caption{Cross-validation classification accuracy \label{tab:measure}}
-\centering
-\input{nb/cv.tex}
-\end{table}
 
 %\begin{tabular}{ | l | l | l | }
 %\hline
@@ -233,12 +238,12 @@ Our best classifier configuration has the accuracy of 81.8\%. The confusion matr
 %\label{tab:measure}
 %\end{table}
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{matrix.png}
-\centering
-\caption{Confusion Matrix}
-\label{figura:matrix}
-\end{figure}
+%\begin{figure}[t]
+%\includegraphics[width=\columnwidth]{matrix.png}
+%\centering
+%\caption{Confusion Matrix}
+%\label{figura:matrix}
+%\end{figure}
 
 \subsubsection{Testing}
 \label{sec:test}
@@ -249,60 +254,125 @@ In order to check the quality of our LG model, 200 tweets were randomly selected
 The top and bottom words of the classes are shown in the Table \ref{tab:coef}. Top coefficients refer to negative class and bottom coefficients show words related to positive class. Through Table \ref{tab:coef} we can see that LG model learned pretty well because words in the Top Coefficients, such as \textsc{this\_is\_a\_url}, \textsc{retail} and \textsc{stores} are related to marketing tweets, also \textsc{he}, \textsc{you}, \textsc{people} and \textsc{she} refer to other people, what represents tweets criticizing people who use e-cigs, thus being negative class. The bottom coefficients \textsc{my}, \textsc{i}, \textsc{vaping}, \textsc{vape} and \textsc{buy} refer to users who tweet about getting or using e-cigs.
 
 
-\begin{table*}[t]
-\centering
-\caption{Top Coefficients of Classifier}
-\label{tab:coef}
-\begin{tabular}{|r|p{14cm}| }
-\hline
-\input{nb/coef.tex}
-\end{tabular}
-\end{table*}
+
+Using three-class classifier: predicted label distribution on raw tweets: [(neutral, 537474), (positive, 329919), (negative, 125240)]
 
 
 \section{Analysis of the sentiment during a year (Oct/2012-Sep/2013)}
 
 We analyzed the amount of tweets by month according to their sentiment (negative or positive) toward e-cigs. In the Figure \ref{figura:all_org} we have considered all organic tweets. In the Figures \ref{figura:oneTweet} and \ref{figura:no_rt} it is considered just users who tweeted once. Figure \ref{figura:one} one tweet per user is considered, and in the Figure \ref{figura:no_rt} does not consider re-tweets.
 
+%% \begin{figure*}
+%% \begin{subfigure}{\columnwidth}
+%%   %\centering
+%%   \includegraphics[width=\columnwidth]{one_per_user.png}
+%%   \caption{All tweets}
+%%   \label{figura:one}
+%% \end{subfigure}%
+%% \begin{subfigure}{\columnwidth}
+%%   \centering
+%%   \includegraphics[width=\columnwidth]{no_rts.png}
+%%   \caption{No re-tweets}
+%%   \label{figura:no_rt}
+%% \end{subfigure}%
+%% \caption{One tweet per user}
+%% \end{figure*}
+
+
+\begin{figure*}[t]
+  \caption{Tweets by month and sentiment $\ge$.}
+  \begin{subfigure}{.96\columnwidth}
+    \centering
+    \caption{Tweets by month. \label{f.total}}
+    \includegraphics[width=\columnwidth]{nb/raw_counts.pdf}  % 111.png}
+  \end{subfigure}
+  \begin{subfigure}{\columnwidth}
+    \centering
+    \caption{Tweets by sentiment. \label{f.sentiment}}
+    \includegraphics[width=\columnwidth]{nb/sentiment.pdf}
+  \end{subfigure}
+\end{figure*}
+
 \begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{download(1).png}
-  \caption{All tweets, 1}
-  \label{figura:all_org}
+\includegraphics[width=\columnwidth]{nb/pct_pos.pdf}  % 111.png}
+\caption{Percent of tweets from each group classified as positive sentiment.}
+\centering
+\label{f.pct_pos}
 \end{figure}
 
-\begin{figure*}
-\begin{subfigure}{\columnwidth}
-  %\centering
-  \includegraphics[width=\columnwidth]{one_per_user.png}
-  \caption{All tweets}
-  \label{figura:one}
-\end{subfigure}%
-\begin{subfigure}{\columnwidth}
-  \centering
-  \includegraphics[width=\columnwidth]{no_rts.png}
-  \caption{No re-tweets}
-  \label{figura:no_rt}
-\end{subfigure}%
-\caption{One tweet per user}
+\begin{figure*}[t]
+  \caption{Tweets by gender and sentiment.}
+  \begin{subfigure}{\columnwidth}
+    \centering
+    \caption{Tweets by gender. \label{f.gender}}
+    \includegraphics[width=\columnwidth]{nb/gender.pdf}
+  \end{subfigure}
+  \begin{subfigure}{.93\columnwidth}
+    \centering
+    \caption{Tweets by gender by sentiment.  \label{f.gender.sentiment}}
+    \includegraphics[width=\columnwidth]{nb/gender_sentiment.pdf}
+  \end{subfigure}
 \end{figure*}
 
 
-\begin{figure*}
-\begin{subfigure}{\columnwidth}
-  \centering
-  \includegraphics[width=\columnwidth]{download(2).png}
-  \caption{All tweets}
-  \label{figura:oneTweet}
-\end{subfigure}%
-\begin{subfigure}{\columnwidth}
-  \centering
-  \includegraphics[width=\columnwidth]{users_tweeted_once_no_rt.png}
-  \caption{No re-tweets}
-  \label{figura:no_rtuser}
-\end{subfigure}%
-\caption{Users who tweeted once}
+\begin{figure*}[t]
+  \caption{Tweets by age and sentiment.}
+  \begin{subfigure}{\columnwidth}
+    \centering
+    \caption{Tweets by age. \label{f.age}}
+    \includegraphics[width=\columnwidth]{nb/ages.pdf}
+  \end{subfigure}
+  \begin{subfigure}{\columnwidth}
+    \centering
+    \caption{Tweets by age by sentiment.\label{f.age.sentiment}}
+    \includegraphics[width=\columnwidth]{nb/age_sentiment.pdf}
+  \end{subfigure}
 \end{figure*}
+
+
+\begin{table*}[t]
+\centering
+\caption{Significant terms by category.}
+\label{tab:terms}
+\begin{tabular}{|r|p{14cm}| }
+\hline
+\input{nb/coef_demo.tex}
+\hline
+\end{tabular}
+\end{table*}
+
+%% \begin{figure*}
+%% \begin{subfigure}{\columnwidth}
+%%   %\centering
+%%   \includegraphics[width=\columnwidth]{one_per_user.png}
+%%   \caption{All tweets}
+%%   \label{figura:one}
+%% \end{subfigure}%
+%% \begin{subfigure}{\columnwidth}
+%%   \centering
+%%   \includegraphics[width=\columnwidth]{no_rts.png}
+%%   \caption{No re-tweets}
+%%   \label{figura:no_rt}
+%% \end{subfigure}%
+%% \caption{One tweet per user}
+%% \end{figure*}
+
+
+%% \begin{figure*}
+%% \begin{subfigure}{\columnwidth}
+%%   \centering
+%%   \includegraphics[width=\columnwidth]{download(2).png}
+%%   \caption{All tweets}
+%%   \label{figura:oneTweet}
+%% \end{subfigure}%
+%% \begin{subfigure}{\columnwidth}
+%%   \centering
+%%   \includegraphics[width=\columnwidth]{users_tweeted_once_no_rt.png}
+%%   \caption{No re-tweets}
+%%   \label{figura:no_rtuser}
+%% \end{subfigure}%
+%% \caption{Users who tweeted once}
+%% \end{figure*}
 
  In those Figures red represents positive tweets, green represents negative and blue all organic tweets. Figure \ref{figura:all_org} shows spikes in April, June and September for all sentiment lines, but Figures \ref{figura:one} and \ref{figura:oneTweet} have moved the first left spike from April to March, what tell us that the number of users was higher in March than April. Figure \ref{figura:oneTweet} and Figure \ref{figura:no_rtuser} have similar shape (same for 
 Figures \ref{figura:one} and \ref{figura:no_rt}), they differ just in the number of tweets in the y axis. 
@@ -352,21 +422,21 @@ The word \textbf{attorneys} represents tweets saying about e-cigarette regulatio
 
 \textbf{Teens} represents tweets talking about the grow of teens vaping, and they also represent negative class. E.g.: \textsc{Bakocom Study Shows More Teens Turning To Electronic Cigarettes: \#palmsprings \#[URL]}\\
 
-\begin{figure*}[t]
-\begin{subfigure}{\columnwidth}
-  %\centering
-  \includegraphics[width=\columnwidth]{sentiment1correct.png}
-  \caption{Model using 2 classes}
-  \label{figura:sent}
-\end{subfigure}%
-\begin{subfigure}{\columnwidth}
-  %\centering
-  \includegraphics[width=\columnwidth]{sentiment2correct.png}
-  \caption{Model using 3 classes}
-  \label{figura:sent2}
-\end{subfigure}%
-\caption{Sentiment over the year}
-\end{figure*}
+%\begin{figure*}[t]
+%\begin{subfigure}{\columnwidth}
+%  %\centering
+%  \includegraphics[width=\columnwidth]{sentiment1correct.png}
+%  \caption{Model using 2 classes}
+%  \label{figura:sent}
+%\end{subfigure}%
+%\begin{subfigure}{\columnwidth}
+%  %\centering
+%  \includegraphics[width=\columnwidth]{sentiment2correct.png}
+%  \caption{Model using 3 classes}
+%  \label{figura:sent2}
+%\end{subfigure}%
+%\caption{Sentiment over the year}
+%\end{figure*}
 
 Figure \ref{figura:sent} shows, in the right y axis, the percentage of positive tweets over all organic with LG model built with 2 classes (positive and negative). We can see that the percentage of positivism is higher during October, December and February, and then it goes down during March and April. May starts going up again, but for the rest of the months no one goes upper than May. The left y axis describes the number of users, and in the x axis, the bars show the number of users who are posting positively by month, from October 2012 through September 2013 in blue color, and we can notice that this number is much less than negative, what tell us that most of tweets are propaganda or criticism about someone using e-cigs. 
 
@@ -375,12 +445,13 @@ In order to understand more Figure \ref{figura:sent}, we have done an analysis c
 \subsection{Gender Inference}
 
 U.S. Census provides list of names from population. We use the 1990's census\footnote{http://www2.census.gov/topics/genealogy/} to compute the proportion of males and females for positive and negative classes. We keep 75\% of each names list, eliminate ambiguous names, at the end the total names are 226 males and 518 females. Each tweet gets then its label, if the first name of the user is present in the male list, it is labeled as male or the same for female list. Figure \ref{figura:gender} shows the distribution of genders in our data. 74\% overall tweets have their gender unknown because the users did not have their names in the census data and majority of tweets belonged to users of companies (369127 unique users are labeled as "unknown"). We can see that 28-30\% of users, independently of gender, express positive sentiment towards electronic cigarettes, but the majority express negativeness toward them.
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{gender.png}
-\centering
-\caption{ Gender distribution of Twitter users}
-\label{figura:gender}
-\end{figure}
+
+%\begin{figure}[t]
+%\includegraphics[width=\columnwidth]{gender.png}
+%\centering
+%\caption{ Gender distribution of Twitter users}
+%\label{figura:gender}
+%\end{figure}
 
 \subsection{Age Inference}
 
@@ -389,102 +460,107 @@ In a recent study Silver and McCanc \cite{silver2014how}, showed how the age of 
 We define the years in age brackets (under 18, 18-24, 25-34, 35-44 and 45+) and with the number of people in certain age and who are still alive we can compute the fraction of people who are still alive for each age bracket. For example, given a name we can see the fraction of people who are 18 years old, which is in the first bracket. Figure \ref{figura:age_bracket} shows an example for the name Elaine, the first column represents the brackets; "n" is the number of people who born during that period, "n\_alive" is the number of people born in that period who are still alive, and "fraction" shows the percentage of people in that bracket who are still alive. In this figure we can see that the most common age estimate for Elaine is 45+, followed by 35-44, 25-34, 18-24 and 18-.
 
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{elaine.PNG}
-\centering
-\caption{Age Bracket for the name Elaine}
-\label{figura:age_bracket}
-\end{figure}
+%% \begin{figure}[t]
+%% \includegraphics[width=\columnwidth]{elaine.PNG}
+%% \centering
+%% \caption{Age Bracket for the name Elaine}
+%% \label{figura:age_bracket}
+%% \end{figure}
 
 The age inference analysis was done by month, considering both classes of our data set. The next figures show the age brackets estimates by month during the year data, plotting separately by sentiment. Figures \ref{figura:pos_45+}, \ref{figura:neg_45+}, and \ref{figura:all_45+} plot the sentiment by age for each age bracket. Figures \ref{figura:pos_45+diff}, \ref{figura:neg_45+diff}, and \ref{figura:all_45+diff} show the differences in the estimates of age. 
 
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{pos_45+.png}
-\centering
-\caption{Age brackets estimate for positive tweets}
-\label{figura:pos_45+}
-\end{figure}
+%% \begin{figure}[t]
+%% \includegraphics[width=\columnwidth]{pos_45+.png}
+%% \centering
+%% \caption{Age brackets estimate for positive tweets}
+%% \label{figura:pos_45+}
+%% \end{figure}
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{neg_45+.png}
-\centering
-\caption{ Age brackets estimate for negative tweets}
-\label{figura:neg_45+}
-\end{figure}
+%% \begin{figure}[t]
+%% \includegraphics[width=\columnwidth]{neg_45+.png}
+%% \centering
+%% \caption{ Age brackets estimate for negative tweets}
+%% \label{figura:neg_45+}
+%% \end{figure}
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{all_45+.png}
-\centering
-\caption{ Age brackets estimate for all tweets}
-\label{figura:all_45+}
-\end{figure}
-
-
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{pos_45+diff.png}
-\centering
-\caption{Age brackets estimate difference for positive tweets}
-\label{figura:pos_45+diff}
-\end{figure}
-
-Figure \ref{figura:pos_45+diff}x
-
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{neg_45+diff.png}
-\centering
-\caption{ Age brackets estimate difference for negative tweets}
-\label{figura:neg_45+diff}
-\end{figure}
-
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{all_45+diff.png}
-\centering
-\caption{ Age all brackets estimate difference for tweets}
-\label{figura:all_45+diff}
-\end{figure}
+%% \begin{figure}[t]
+%% \includegraphics[width=\columnwidth]{all_45+.png}
+%% \centering
+%% \caption{ Age brackets estimate for all tweets}
+%% \label{figura:all_45+}
+%% \end{figure}
 
 
+%% \begin{figure}[t]
+%% \includegraphics[width=\columnwidth]{pos_45+diff.png}
+%% \centering
+%% \caption{Age brackets estimate difference for positive tweets}
+%% \label{figura:pos_45+diff}
+%% \end{figure}
+
+%% Figure \ref{figura:pos_45+diff}x
+
+%% \begin{figure}[t]
+%% \includegraphics[width=\columnwidth]{neg_45+diff.png}
+%% \centering
+%% \caption{ Age brackets estimate difference for negative tweets}
+%% \label{figura:neg_45+diff}
+%% \end{figure}
+
+%% \begin{figure}[t]
+%% \includegraphics[width=\columnwidth]{all_45+diff.png}
+%% \centering
+%% \caption{ Age all brackets estimate difference for tweets}
+%% \label{figura:all_45+diff}
+%% \end{figure}
 
 
 
-\begin{landscape}
-\begin{table}[httb]
-\caption{10 Most significant words by month}
-\label{tab:topwords}
-\hskip-5.0cm\begin{tabular}[httb]{ | l | l | l | l | l | l | }
-\hline
-	Oct & Nov & Dec & Jan & Feb & Mar \\ \hline
-	dragonfly 16.81 - 1.33\% & election 10.12 - 1.70\% & mhealth 9.29 - 0.29\% & igotoaschoolwhere 8.52 - 0.20\% & whatevs 9.16 - 0.27\% & onew 12.53 - 2.98 \% \\ \hline
-	ltdTHIS\_IS\_A\_URL 8.74 - 0.27\% & thanksgiving 8.61 - 0.36\% & christmas 8.26 - 2.07\% & soar 7.92 - 0.32\% & ecigs1 8.46 - 0.19\% & 03 10.78 - 2.88\% \\ \hline
-	stoptober 7.89 - 1.04\% & election2012 8.17 - 0.22\% & youcantbetakenseriouslyif 7.97 - 0.12\% & mook 7.03 - 0.53\% & valentine 7.69 - 0.50\% & pope 9.96 - 4.35\% \\ \hline
-	discos 6.85 - 4.22\% & sarapmagvape 7.71 - 0.45\% & ganj 7.74 - 0.28\% & embarrassment 6.85 - 0.33\% & valentines 7.13 - 0.10\% & vaporware 8.87 - 0.12\% \\ \hline
-	clik 6.71 - 0.44\% & sideburn 6.81 - 0.11\% & xmas 7.11 - 0.45\% & thingsthatbotherme 6.43 - 0.21\% & queers 6.89 - 0.42 & vatican 8.15 - 1.23\% \\ \hline
-	mall 6.56 - 1.70\% & pattinson 6.61 - 0.63\% & dec 7.00 - 0.29\% & 22509 5.97 - 0.07\% & superbowl 6.84 - 0.12\% & sxsw 8.10 - 0.15\% \\ \hline
-	clintandrew 6.29 - 0.28\% & shishavapes 5.96 - 0.31\% & govawards 6.33 - 0.10\% & 36e 5.84 - 0.17\% & oscars 6.51 - 0.09\% & nanopartices 7.82 -0.09\% \\ \hline
-	fuckingsmart 6.28 - 0.23\% & nov 5.64 - 0.21\% & itsabaddaywhen 6.09 - 0.21\% & pst 5.84 - 0.10\% & baftas 6.49 - 0.09\% & conclave 7.71 - 1.01\% \\ \hline
-	dispoecig 6.25 - 0.12\% & emazin 5.60 - 0.10\% & camilla 5.91 - 2.63\% & perfects 5.81 - 0.10\% & positivity 6.11 - 0.06\% & faked 7.49 - 0.61\% \\ \hline
-	ohmyvapor 6.06 - 0.12\% & rob 5.47 - 1.73\% & legalise 5.91 - 0.28\% & monumental 5.79 0.34\% & britons 6.00 - 0.12\% & quitsmoking2 7.32 - 0.09\% \\ \hline
-\end{tabular}
-
-\hskip-5.0cm \begin{tabular}{ | l | l | l | l | l | l | }
-\hline
-	Apr & May & Jun & Jul & Aug & Sep \\ \hline
-	courtney 13.21 - 1.41\% & efags 10.50 - 0.44\% & financile 9.57 - 0.20\% & uncut 8.34 - 0.06\% & bloomberg 9.17 - 0.90\% & whisp 14.50 - 1.42\% \\ \hline
-	senators 12.17  - 0.20\% & efags2 9.40 - 0.17\% & boomed 7.54 - 0.20\% & bbj 7.61 0.51\% & proudtovape 8.25 - 0.15\% & worldvapingday 9.76 - 0.66\% \\ \hline
-	euecigban 11.55 - 12.86\% & uae 8.66 - 0.28\% & fathers 7.06 - 0.11\% & modeltwo 7.17 - 0.45\% & playbook 8.21 - 0.19\% & nude 9.41 - 0.85\% \\ \hline
-	primarily 9.08 - 0.16\% & 1250 8.24 - 0.17\% & mhra 6.87 - 0.91\% & lirr 7.02 - 0.09\% & kv2 7.87 - 0.09\% & attorneys 9.05 - 0.67\% \\ \hline
-	leachon 8.60 - 0.13\% & workshop 8.08 - 0.33\% & rachet 6.74 - 0.24\% & ankle 7.01 - 0.11\% & 08 7.61 - 0.24\% & patches 8.68 - 2.90\% \\ \hline
-	welcometomyschoolwhere  7.99 - 0.11\% & subculture 6.83 - 0.13\% & fuels 6.58 - 0.17\% & dumbasses 6.57 - 0.17\% & smartcigs 7.39 - 0.05\% & lab13 8.07 - 0.08\% \\ \hline
-	750 7.90 - 2.81\% & imu 6.54 - 0.56\% & blucigscoupons 6.56 - 0.03\% & manhattan 6.49 - 0.20\% & stupider 7.35 - 0.11\% & teens 7.88 - 1.40\% \\ \hline
-	eue 7.79 - 0.45\% & jury 6.49 - 0.21\% & sowwy 6.48 - 0.12\% & muffler 6.09 - 0.20\% & mass 7.20 - 0.62\% & vapefest 7.61 - 0.24\% \\ \hline
-	mywebcamTHIS\_IS\_A\_MENTION 7.65 - 0.23\% & interpretations 6.39 - 0.08\% & bonnaroo 6.46 - 0.08\% & agrees 5.91 - 0.13\% & musicians 6.56 - 0.16\% & duluth 7.46 - 0.14\% \\ \hline
-	irs 7.57 - 0.12\% & blogengage 6.38 - 0.09\% & restrictions 6.29 - 0.86\% & pnoy 5.78 - 0.07\% & ushered 6.51 - 0.47\% & students 7.39 - 1.59\% \\ \hline
-\end{tabular}
-\end{table}
-\end{landscape}
 
 
+%% \begin{landscape}
+%% \begin{table}[httb]
+%% \caption{10 Most significant words by month}
+%% \label{tab:topwords}
+%% \hskip-5.0cm\begin{tabular}[httb]{ | l | l | l | l | l | l | }
+%% \hline
+%% 	Oct & Nov & Dec & Jan & Feb & Mar \\ \hline
+%% 	dragonfly 16.81 - 1.33\% & election 10.12 - 1.70\% & mhealth 9.29 - 0.29\% & igotoaschoolwhere 8.52 - 0.20\% & whatevs 9.16 - 0.27\% & onew 12.53 - 2.98 \% \\ \hline
+%% 	ltdTHIS\_IS\_A\_URL 8.74 - 0.27\% & thanksgiving 8.61 - 0.36\% & christmas 8.26 - 2.07\% & soar 7.92 - 0.32\% & ecigs1 8.46 - 0.19\% & 03 10.78 - 2.88\% \\ \hline
+%% 	stoptober 7.89 - 1.04\% & election2012 8.17 - 0.22\% & youcantbetakenseriouslyif 7.97 - 0.12\% & mook 7.03 - 0.53\% & valentine 7.69 - 0.50\% & pope 9.96 - 4.35\% \\ \hline
+%% 	discos 6.85 - 4.22\% & sarapmagvape 7.71 - 0.45\% & ganj 7.74 - 0.28\% & embarrassment 6.85 - 0.33\% & valentines 7.13 - 0.10\% & vaporware 8.87 - 0.12\% \\ \hline
+%% 	clik 6.71 - 0.44\% & sideburn 6.81 - 0.11\% & xmas 7.11 - 0.45\% & thingsthatbotherme 6.43 - 0.21\% & queers 6.89 - 0.42 & vatican 8.15 - 1.23\% \\ \hline
+%% 	mall 6.56 - 1.70\% & pattinson 6.61 - 0.63\% & dec 7.00 - 0.29\% & 22509 5.97 - 0.07\% & superbowl 6.84 - 0.12\% & sxsw 8.10 - 0.15\% \\ \hline
+%% 	clintandrew 6.29 - 0.28\% & shishavapes 5.96 - 0.31\% & govawards 6.33 - 0.10\% & 36e 5.84 - 0.17\% & oscars 6.51 - 0.09\% & nanopartices 7.82 -0.09\% \\ \hline
+%% 	fuckingsmart 6.28 - 0.23\% & nov 5.64 - 0.21\% & itsabaddaywhen 6.09 - 0.21\% & pst 5.84 - 0.10\% & baftas 6.49 - 0.09\% & conclave 7.71 - 1.01\% \\ \hline
+%% 	dispoecig 6.25 - 0.12\% & emazin 5.60 - 0.10\% & camilla 5.91 - 2.63\% & perfects 5.81 - 0.10\% & positivity 6.11 - 0.06\% & faked 7.49 - 0.61\% \\ \hline
+%% 	ohmyvapor 6.06 - 0.12\% & rob 5.47 - 1.73\% & legalise 5.91 - 0.28\% & monumental 5.79 0.34\% & britons 6.00 - 0.12\% & quitsmoking2 7.32 - 0.09\% \\ \hline
+%% \end{tabular}
+
+%% \hskip-5.0cm \begin{tabular}{ | l | l | l | l | l | l | }
+%% \hline
+%% 	Apr & May & Jun & Jul & Aug & Sep \\ \hline
+%% 	courtney 13.21 - 1.41\% & efags 10.50 - 0.44\% & financile 9.57 - 0.20\% & uncut 8.34 - 0.06\% & bloomberg 9.17 - 0.90\% & whisp 14.50 - 1.42\% \\ \hline
+%% 	senators 12.17  - 0.20\% & efags2 9.40 - 0.17\% & boomed 7.54 - 0.20\% & bbj 7.61 0.51\% & proudtovape 8.25 - 0.15\% & worldvapingday 9.76 - 0.66\% \\ \hline
+%% 	euecigban 11.55 - 12.86\% & uae 8.66 - 0.28\% & fathers 7.06 - 0.11\% & modeltwo 7.17 - 0.45\% & playbook 8.21 - 0.19\% & nude 9.41 - 0.85\% \\ \hline
+%% 	primarily 9.08 - 0.16\% & 1250 8.24 - 0.17\% & mhra 6.87 - 0.91\% & lirr 7.02 - 0.09\% & kv2 7.87 - 0.09\% & attorneys 9.05 - 0.67\% \\ \hline
+%% 	leachon 8.60 - 0.13\% & workshop 8.08 - 0.33\% & rachet 6.74 - 0.24\% & ankle 7.01 - 0.11\% & 08 7.61 - 0.24\% & patches 8.68 - 2.90\% \\ \hline
+%% 	welcometomyschoolwhere  7.99 - 0.11\% & subculture 6.83 - 0.13\% & fuels 6.58 - 0.17\% & dumbasses 6.57 - 0.17\% & smartcigs 7.39 - 0.05\% & lab13 8.07 - 0.08\% \\ \hline
+%% 	750 7.90 - 2.81\% & imu 6.54 - 0.56\% & blucigscoupons 6.56 - 0.03\% & manhattan 6.49 - 0.20\% & stupider 7.35 - 0.11\% & teens 7.88 - 1.40\% \\ \hline
+%% 	eue 7.79 - 0.45\% & jury 6.49 - 0.21\% & sowwy 6.48 - 0.12\% & muffler 6.09 - 0.20\% & mass 7.20 - 0.62\% & vapefest 7.61 - 0.24\% \\ \hline
+%% 	mywebcamTHIS\_IS\_A\_MENTION 7.65 - 0.23\% & interpretations 6.39 - 0.08\% & bonnaroo 6.46 - 0.08\% & agrees 5.91 - 0.13\% & musicians 6.56 - 0.16\% & duluth 7.46 - 0.14\% \\ \hline
+%% 	irs 7.57 - 0.12\% & blogengage 6.38 - 0.09\% & restrictions 6.29 - 0.86\% & pnoy 5.78 - 0.07\% & ushered 6.51 - 0.47\% & students 7.39 - 1.59\% \\ \hline
+%% \end{tabular}
+%% \end{table}
+%% \end{landscape}
+
+\section{Discussion}
+
+\subsection{Relation to prior survey results}
+``Likewise, Pearson et al. (2012) found no difference in men and women's ever-use of e-cigarettes (men: 12.6%, 95% CI 9.2-16.9; women: 10.3%, 95% CI 7.7-13.7).''
+
+Younger and older individuals appeared equally likely to have ever used e-cigarettes in the U.S., but younger individuals were more likely to ever-use them in other regions. 
 
 \section{Conclusion}
 
