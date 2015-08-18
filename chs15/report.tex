@@ -175,15 +175,22 @@ Table \ref{tab:labelsample} describes some examples of our training data with tw
 \begin{tabular}{|l|l|p{9cm}|}
 \hline
 {\bf Class}                     & {\bf \#Tweets}        & {\bf Tweet Sample}                                                                                                                       \\ \hline
-\multirow{2}{*}{{\bf Positive}} & \multirow{2}{*}{676}  & I bought,a Ecig today                                                                                                                    \\ \cline{3-3} 
-                                &                       & @MikeeeDeeeLeon,Nice I tried to smoke electronic cigarette last Saturday, it was my first,time.                                          \\ \hline
-\multirow{2}{*}{{\bf Negative}} & \multirow{2}{*}{275}  & This kid,was hitting an e-cig during class. I look over and smokes coming out his,nose.                                                  \\ \cline{3-3} 
-                                &                       & e-cigs,are bad, mmkay? {[}URL{]}                                                                                                         \\ \hline
-\multirow{2}{*}{{\bf Neutral}}  & \multirow{2}{*}{1049} & \#vapor,\#smoking,\#vaping - Vapor Joes - Daily,Vaping Deals: Boge ViVi Nova - \$6.99 Free Shipping {[}URL{]},- \#ecig \#VapeDeal        \\ \cline{3-3} 
-                                &                       & @SenKClark,Stop \#H3639 by @jeffrey\_sanchez , Millions have quit smoking with the \#Ecig.,\#H3639 promotes \#cigarettes and \#cancer !! \\ \hline
+\multirow{2}{*}{{\bf Positive}} & \multirow{2}{*}{676}  & I bought a Ecig today                                                                                                                    \\ %\cline{3-3} 
+                                &                       & Electric cigarettes are better than regular cigarettes!!                                          \\ \hline
+\multirow{2}{*}{{\bf Negative}} & \multirow{2}{*}{275}  & \#IHatePeopleThat smoke ecigs                                                  \\ %\cline{3-3} 
+                                &                       & e-cigs are bad, mmkay?                                                                                                         \\ \hline
+\multirow{2}{*}{{\bf Neutral}}  & \multirow{2}{*}{1049} &  what is an electronic cigarette?        \\ % \cline{3-3} 
+                                &                       & A homeless guy just asked me if he could bum an e-cigarette\\ \hline
 \end{tabular}
 %\end{adjustbox}
 \end{table*}
+
+\begin{figure}[t]
+\caption{Precision-recall curves on the labeled data.}
+\includegraphics[width=\columnwidth]{nb/prec_rec.pdf}  % 111.png}
+\centering
+\label{f.prec_rec}
+\end{figure}
 
 \begin{table}[t]
 \caption{Cross-validation classification accuracy \label{tab:measure}}
@@ -317,17 +324,23 @@ We analyzed the amount of tweets by month according to their sentiment (negative
 
 \begin{figure*}[t]
   \caption{Tweets by age and sentiment.}
-  \begin{subfigure}{\columnwidth}
+  \begin{subfigure}{.9\columnwidth}
     \centering
     \caption{Tweets by age. \label{f.age}}
     \includegraphics[width=\columnwidth]{nb/ages.pdf}
   \end{subfigure}
+  \hspace{.5in}
   \begin{subfigure}{\columnwidth}
     \centering
     \caption{Tweets by age by sentiment.\label{f.age.sentiment}}
     \includegraphics[width=\columnwidth]{nb/age_sentiment.pdf}
   \end{subfigure}
 \end{figure*}
+
+\begin{figure}[t]
+  \caption{Percent of non-neutral tweets mentioning each term.}
+  \includegraphics[width=\columnwidth]{nb/term_trends.pdf}  % 111.png}
+\end{figure}
 
 
 \begin{table*}[t]
