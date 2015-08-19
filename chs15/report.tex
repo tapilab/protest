@@ -52,7 +52,8 @@
 \usepackage{pdflscape}
 \usepackage{subcaption}
 \usepackage{url}
-
+\usepackage[numbers]{natbib}
+\newcommand{\citenoun}[1]{{\citeauthor{#1}~\cite{#1}}}
 
 \begin{document}
 %
@@ -62,7 +63,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{An analysis of e-cigarette sentiment and demographics on Twitter}
+\title{A demographic and sentiment analysis of e-cigarette messages on Twitter}
 %
 % You need the command \numberofauthors to handle the 'placement
 % and alignment' of the authors beneath the title.
@@ -137,23 +138,117 @@ Social media platforms, such as Twitter plays a big role in the society nowadays
 \keywords{Web mining, social media, public health}
 
 \section{Introduction}
+Understanding evolving behaviors and attitudes related to alcohol, tobacco,
+and other drugs is a critical public health goal. Typically, such topics are
+investigated by survey research; however, surveys can be costly and
+time-consuming, making them ill-suited to rapidly changing
+environments. Furthermore, survey response rates have fallen precipitously in
+recent years (Kohut et al. 2012), leading researchers to seek non-traditional
+data sources. A promising new methodology is social media analysis, which
+analyzes online content expressing health-related behaviors and opinions to
+provide insights into population-level trends. Online content offers several
+potential advantages over traditional data: one can in real-time measure how
+behaviors and attitudes change in response to rare events such as legal
+changes, new products, and marketing campaigns, and the open-ended nature of
+the content can provide more diverse data. Such approaches have been used to
+study depression~\cite{choudhury2013predicting}, insomnia~\cite{powell2012i},
+and other health topics~\cite{dredze2012how}.
 
-Electronic cigarettes (e-cigs) provide a nicotine-coitaining aerosol with different flavors, glycol and other ingredients, that users smoke by heating up a solution \cite{grana2014cigarettes}. There are some researches being done to confirm how harmful e-cigs can be, such as \cite{sussan2015exposure,pauly2007tobacco}, but e-cigs have not been still well studied and the effects of long-term use is not known yet \cite{bhatnagar2014electronic}.
-King et al.\cite{king2013awareness} state that electronic cigarettes use is increasing a lot among adults, and \cite{centers2013notes,ecig2015triples} also describes that the use among middle school students increased, and for high school students tripled in 2014.
-In this project we have been working with twitter data which was collected during a year period, from October 2012 through September 2013, looking for mentions and for people talking about e-cigs. The main goal of this project is analyze what Twitter users are talking about this subject, and try to get the sentiment of the users towards e-cigs, in order to find out how people are receiving the use of e-cigs and also to check the type of customers who are buying them. 
+In this paper we present a descriptive study of attitudes towards electronic
+cigarettes (e-cigs) expressed on Twitter.com. E-cigs provide a
+nicotine-containing aerosol with different flavors, glycol and other
+ingredients, that users smoke by heating up a solution
+\cite{grana2014cigarettes}. E-cig adoption has increased rapidly in the United
+States recently~\cite{king2013awareness,centers2013notes}; by one estimate,
+usage by high school students tripled in 2014~\cite{ecig2015triples}. Despite
+this rapid growth, there is still considerable debate over the health impact
+of e-cigs~\cite{sussan2015exposure,pauly2007tobacco,bhatnagar2014electronic},
+also reflected in consumer surveys~\cite{pepper2015risky}, leading to
+uncertainty as to how they should be regulated.
+
+We analyze nearly one million tweets posted from October 2012 to September
+2013 that contain keywords related to e-cigarettes. We use a supervised
+classification algorithm to annotate each message by sentiment (positive,
+negative, or neutral). Furthermore, using the first name of each user, we
+derive estimates of age and gender to further stratify results. Our main
+findings are as follows:
+\begin{itemize}
+\item Overall volume of e-cig tweets grew five-fold in our year sample, from
+  30K tweets in October 2012 to 150K in September 2013.
+\item Of tweets expressing sentiment, 65\% are classified as positive
+  sentiment (tweets either advocating for e-cigs or indicating that the user
+  has tried e-cigs). This value ranges by month from 61\% in March 2013 to
+  74\% in July 2013. We find that external events (e.g., regulations) can have
+  a large impact on this estimate.
+\item We find positive sentiment to be slightly higher for males than females
+  (63\% vs.~61\%), and highest for users estimated to be 18-24 years old (67\%).
+\end{itemize}
+
+We additionally perform a substantive analysis to provide a more fine-grained
+insight into the different ways people discuss e-cigs and how that is related
+to sentiment and demographics. For example, in November-January we find a
+spike in messages from users wishing for e-cigs as a Christmas present to help
+them stop smoking. We also find that many tweets from young female users
+mention smoking e-cigs with their parents or buying e-cigs for their parents;
+whereas male users are more likely to ridicule those using e-cigs.
+
+The remainer of the paper is organized as follows: Section~\ref{s.prior}
+reviews related work; Section~\ref{s.methods} describes the Twitter data and
+our method of analysis; Section~\ref{s.results} describes our main results;
+Section~\ref{s.discussion} discusses implications, limitations, and future
+work; and Section~\ref{s.conclusion} concludes.
+
 
 \section{Prior work}
+\label{s.prior}
 
-\cite{myslin2013using} collected twitter data and analysed tobacco-related posts from November 2011 through July 2012, right before our data collection which was from October 2012 through September 2013. They used three machine learning algorithms and varied parameters, such as n-grams and the number of features used. Their final data set is composed of 7362 tweets and our data set is composed of more than 900k tweets. They were manually classified and each one of them was assigned to several categories (genre, theme and sentiment). The authors found that those tweets are usually more positive (41\%/30\% positive/negative ratio) towards tobacco, specially tweets related to hooka and e-cigarettes. Fist-hand personal experience is more correlated with positive sentiment and opinion correlates more strongly with negative sentiment. They also found that social factors influence in the sentiment toward tobacco. Young users and social relationships are keys that emerge with positive sentiment, what tells that positive sentiment has a interaction between hooka and e-cigarettes, younger users and positive social experiences. 
+\citenoun{myslin2013using} manually classified 4K tobacco-related tweets
+along 30 dimensions, including sentiment, theme, and genre, finding that
+tweets about e-cigs and hookahs tended to have more positive sentiment. Here,
+we focus specifically on e-cigs, expanding upon this initial work with a much
+larger set of tweets (1M) over a longer time span, and further
+stratifying by gender and age.
 
-This paper focused on analysing tobacco-related tweets, positive and negative sentiment, but it does not report possible age and gender of the users. So, our study fills this gap by inferring gender and age of Twitter users in order to address the problem to monitor closely certain ages and also to drive public health campaigns to the right public.
+\citenoun{huang2014cross} analyzed 74K tweets related to e-cigs and,
+using a supervised classifier, found that 90\% were commercial tweets, and
+about 10\% mentioned smoking cessation. We build on this prior work, using
+their classifier to first filter out commercial tweets.
 
+Other work has found a prevalence of smoking cessation accounts on
+Twitter~\cite{prochaska2012twitter}, and has attempted to track the progress
+of cessation attempts by following Twitter accounts of identified
+users~\cite{murnane2014unraveling}.
 
+Very recently, \citenoun{godea2015analysis} analyzed 106K tweets containing
+e-cig related terms collected over a two month period. They built a sentiment
+classifier using a hand-engineered lexicon of over 600 terms, achieving a
+positive/negative F1-score of 55-56\%.
+
+Compared to this prior work, our main contributions consist of (1) an analysis
+of a much larger sample of e-cig tweets than has been done previously,
+consisting of nearly one million tweets written over one year; (2) a sentiment
+classifier tuned for precision that identifies positive tweets with 96\%
+precision and negative tweets with 70\% precision; (3) an analysis of temporal
+trends in sentiment and demographics.
 
 \section{Methods}
+\label{s.methods}
+
+In this section we describe the data collected and the methods used for classifying tweets by sentiment and for estimating user age and gender.
+
 \subsection{Data Collection}
 \label{sec:data}
-Tweets were collected through keywords about electronic cigarettes (e-cigarette,ecigarette, e-cig, or ecig). Same data collection process was done in this study as in the work \cite{huang2014cross}. A Support Vector Machine (SVM) algorithm was used to classify tweets in two classes commercial, which linked to commercial websites, branded promotional messages or spammer accounts, and non-commercial, which showed individual opinions and experiences. As result, 992,633 tweets were classified as organic (non-commercial), and all the collection add up to 4,639,885.
+We use the data collection process described in
+\citenoun{huang2014cross}. Using the full Twitter Firehouse, tweets were
+collected from October 2012 to September 2013, using a set of keywords
+identified by expert consensus ({\it e-cigarette}, {\it ecigarette}, {\it
+  e-cig}, {\it ecig}). Additional tweets were identified that matched the
+query: ({\it cig} OR {\it cigarette}) AND ({\it electronic} OR {\it blu} OR
+{\it njoy}) (the latter two terms referring to the top-selling e-cig brands in
+the U.S.). This resulted in 4,639,885 tweets. Using the classifier of
+\citenoun{huang2014cross}, we retained only those tweets identified as
+``organic,'' defined as ``those reflecting individual opinions or experiences
+or linked to non-promotional content.'' This left 992,633 tweets.
 
 Aiming to analyze the sentiment of users we need to work just with organic tweets, so we have selected just organic tweets which represent (21.39\%) of the data. Figure \ref{figura:total} shows the number of tweets (y axis) by month (x axis). The green line refers to organic tweets and blue line to all tweets. We can see that there is a big spike in March and also an increase in the months of May and September.
 
@@ -175,18 +270,18 @@ Table \ref{tab:labelsample} describes some examples of our training data with tw
 \begin{tabular}{|l|l|p{9cm}|}
 \hline
 {\bf Class}                     & {\bf \#Tweets}        & {\bf Tweet Sample}                                                                                                                       \\ \hline
-\multirow{2}{*}{{\bf Positive}} & \multirow{2}{*}{676}  & I bought a Ecig today                                                                                                                    \\ %\cline{3-3} 
+\multirow{2}{*}{{\bf Positive}} & \multirow{2}{*}{707}  & I bought a Ecig today                                                                                                                    \\ %\cline{3-3} 
                                 &                       & Electric cigarettes are better than regular cigarettes!!                                          \\ \hline
-\multirow{2}{*}{{\bf Negative}} & \multirow{2}{*}{275}  & \#IHatePeopleThat smoke ecigs                                                  \\ %\cline{3-3} 
+\multirow{2}{*}{{\bf Negative}} & \multirow{2}{*}{279}  & \#IHatePeopleThat smoke ecigs                                                  \\ %\cline{3-3} 
                                 &                       & e-cigs are bad, mmkay?                                                                                                         \\ \hline
-\multirow{2}{*}{{\bf Neutral}}  & \multirow{2}{*}{1049} &  what is an electronic cigarette?        \\ % \cline{3-3} 
+\multirow{2}{*}{{\bf Neutral}}  & \multirow{2}{*}{1014} &  what is an electronic cigarette?        \\ % \cline{3-3} 
                                 &                       & A homeless guy just asked me if he could bum an e-cigarette\\ \hline
 \end{tabular}
 %\end{adjustbox}
 \end{table*}
 
 \begin{figure}[t]
-\caption{Precision-recall curves on the labeled data.}
+\caption{Precision-recall curves derived by classifying the labeled data using 10-fold cross-validation.}
 \includegraphics[width=\columnwidth]{nb/prec_rec.pdf}  % 111.png}
 \centering
 \label{f.prec_rec}
@@ -264,6 +359,8 @@ The top and bottom words of the classes are shown in the Table \ref{tab:coef}. T
 
 Using three-class classifier: predicted label distribution on raw tweets: [(neutral, 537474), (positive, 329919), (negative, 125240)]
 
+\section{Results}
+\label{s.results}
 
 \section{Analysis of the sentiment during a year (Oct/2012-Sep/2013)}
 
@@ -473,113 +570,32 @@ In a recent study Silver and McCanc \cite{silver2014how}, showed how the age of 
 We define the years in age brackets (under 18, 18-24, 25-34, 35-44 and 45+) and with the number of people in certain age and who are still alive we can compute the fraction of people who are still alive for each age bracket. For example, given a name we can see the fraction of people who are 18 years old, which is in the first bracket. Figure \ref{figura:age_bracket} shows an example for the name Elaine, the first column represents the brackets; "n" is the number of people who born during that period, "n\_alive" is the number of people born in that period who are still alive, and "fraction" shows the percentage of people in that bracket who are still alive. In this figure we can see that the most common age estimate for Elaine is 45+, followed by 35-44, 25-34, 18-24 and 18-.
 
 
-%% \begin{figure}[t]
-%% \includegraphics[width=\columnwidth]{elaine.PNG}
-%% \centering
-%% \caption{Age Bracket for the name Elaine}
-%% \label{figura:age_bracket}
-%% \end{figure}
-
 The age inference analysis was done by month, considering both classes of our data set. The next figures show the age brackets estimates by month during the year data, plotting separately by sentiment. Figures \ref{figura:pos_45+}, \ref{figura:neg_45+}, and \ref{figura:all_45+} plot the sentiment by age for each age bracket. Figures \ref{figura:pos_45+diff}, \ref{figura:neg_45+diff}, and \ref{figura:all_45+diff} show the differences in the estimates of age. 
 
-
-%% \begin{figure}[t]
-%% \includegraphics[width=\columnwidth]{pos_45+.png}
-%% \centering
-%% \caption{Age brackets estimate for positive tweets}
-%% \label{figura:pos_45+}
-%% \end{figure}
-
-%% \begin{figure}[t]
-%% \includegraphics[width=\columnwidth]{neg_45+.png}
-%% \centering
-%% \caption{ Age brackets estimate for negative tweets}
-%% \label{figura:neg_45+}
-%% \end{figure}
-
-%% \begin{figure}[t]
-%% \includegraphics[width=\columnwidth]{all_45+.png}
-%% \centering
-%% \caption{ Age brackets estimate for all tweets}
-%% \label{figura:all_45+}
-%% \end{figure}
-
-
-%% \begin{figure}[t]
-%% \includegraphics[width=\columnwidth]{pos_45+diff.png}
-%% \centering
-%% \caption{Age brackets estimate difference for positive tweets}
-%% \label{figura:pos_45+diff}
-%% \end{figure}
-
-%% Figure \ref{figura:pos_45+diff}x
-
-%% \begin{figure}[t]
-%% \includegraphics[width=\columnwidth]{neg_45+diff.png}
-%% \centering
-%% \caption{ Age brackets estimate difference for negative tweets}
-%% \label{figura:neg_45+diff}
-%% \end{figure}
-
-%% \begin{figure}[t]
-%% \includegraphics[width=\columnwidth]{all_45+diff.png}
-%% \centering
-%% \caption{ Age all brackets estimate difference for tweets}
-%% \label{figura:all_45+diff}
-%% \end{figure}
-
-
-
-
-
-%% \begin{landscape}
-%% \begin{table}[httb]
-%% \caption{10 Most significant words by month}
-%% \label{tab:topwords}
-%% \hskip-5.0cm\begin{tabular}[httb]{ | l | l | l | l | l | l | }
-%% \hline
-%% 	Oct & Nov & Dec & Jan & Feb & Mar \\ \hline
-%% 	dragonfly 16.81 - 1.33\% & election 10.12 - 1.70\% & mhealth 9.29 - 0.29\% & igotoaschoolwhere 8.52 - 0.20\% & whatevs 9.16 - 0.27\% & onew 12.53 - 2.98 \% \\ \hline
-%% 	ltdTHIS\_IS\_A\_URL 8.74 - 0.27\% & thanksgiving 8.61 - 0.36\% & christmas 8.26 - 2.07\% & soar 7.92 - 0.32\% & ecigs1 8.46 - 0.19\% & 03 10.78 - 2.88\% \\ \hline
-%% 	stoptober 7.89 - 1.04\% & election2012 8.17 - 0.22\% & youcantbetakenseriouslyif 7.97 - 0.12\% & mook 7.03 - 0.53\% & valentine 7.69 - 0.50\% & pope 9.96 - 4.35\% \\ \hline
-%% 	discos 6.85 - 4.22\% & sarapmagvape 7.71 - 0.45\% & ganj 7.74 - 0.28\% & embarrassment 6.85 - 0.33\% & valentines 7.13 - 0.10\% & vaporware 8.87 - 0.12\% \\ \hline
-%% 	clik 6.71 - 0.44\% & sideburn 6.81 - 0.11\% & xmas 7.11 - 0.45\% & thingsthatbotherme 6.43 - 0.21\% & queers 6.89 - 0.42 & vatican 8.15 - 1.23\% \\ \hline
-%% 	mall 6.56 - 1.70\% & pattinson 6.61 - 0.63\% & dec 7.00 - 0.29\% & 22509 5.97 - 0.07\% & superbowl 6.84 - 0.12\% & sxsw 8.10 - 0.15\% \\ \hline
-%% 	clintandrew 6.29 - 0.28\% & shishavapes 5.96 - 0.31\% & govawards 6.33 - 0.10\% & 36e 5.84 - 0.17\% & oscars 6.51 - 0.09\% & nanopartices 7.82 -0.09\% \\ \hline
-%% 	fuckingsmart 6.28 - 0.23\% & nov 5.64 - 0.21\% & itsabaddaywhen 6.09 - 0.21\% & pst 5.84 - 0.10\% & baftas 6.49 - 0.09\% & conclave 7.71 - 1.01\% \\ \hline
-%% 	dispoecig 6.25 - 0.12\% & emazin 5.60 - 0.10\% & camilla 5.91 - 2.63\% & perfects 5.81 - 0.10\% & positivity 6.11 - 0.06\% & faked 7.49 - 0.61\% \\ \hline
-%% 	ohmyvapor 6.06 - 0.12\% & rob 5.47 - 1.73\% & legalise 5.91 - 0.28\% & monumental 5.79 0.34\% & britons 6.00 - 0.12\% & quitsmoking2 7.32 - 0.09\% \\ \hline
-%% \end{tabular}
-
-%% \hskip-5.0cm \begin{tabular}{ | l | l | l | l | l | l | }
-%% \hline
-%% 	Apr & May & Jun & Jul & Aug & Sep \\ \hline
-%% 	courtney 13.21 - 1.41\% & efags 10.50 - 0.44\% & financile 9.57 - 0.20\% & uncut 8.34 - 0.06\% & bloomberg 9.17 - 0.90\% & whisp 14.50 - 1.42\% \\ \hline
-%% 	senators 12.17  - 0.20\% & efags2 9.40 - 0.17\% & boomed 7.54 - 0.20\% & bbj 7.61 0.51\% & proudtovape 8.25 - 0.15\% & worldvapingday 9.76 - 0.66\% \\ \hline
-%% 	euecigban 11.55 - 12.86\% & uae 8.66 - 0.28\% & fathers 7.06 - 0.11\% & modeltwo 7.17 - 0.45\% & playbook 8.21 - 0.19\% & nude 9.41 - 0.85\% \\ \hline
-%% 	primarily 9.08 - 0.16\% & 1250 8.24 - 0.17\% & mhra 6.87 - 0.91\% & lirr 7.02 - 0.09\% & kv2 7.87 - 0.09\% & attorneys 9.05 - 0.67\% \\ \hline
-%% 	leachon 8.60 - 0.13\% & workshop 8.08 - 0.33\% & rachet 6.74 - 0.24\% & ankle 7.01 - 0.11\% & 08 7.61 - 0.24\% & patches 8.68 - 2.90\% \\ \hline
-%% 	welcometomyschoolwhere  7.99 - 0.11\% & subculture 6.83 - 0.13\% & fuels 6.58 - 0.17\% & dumbasses 6.57 - 0.17\% & smartcigs 7.39 - 0.05\% & lab13 8.07 - 0.08\% \\ \hline
-%% 	750 7.90 - 2.81\% & imu 6.54 - 0.56\% & blucigscoupons 6.56 - 0.03\% & manhattan 6.49 - 0.20\% & stupider 7.35 - 0.11\% & teens 7.88 - 1.40\% \\ \hline
-%% 	eue 7.79 - 0.45\% & jury 6.49 - 0.21\% & sowwy 6.48 - 0.12\% & muffler 6.09 - 0.20\% & mass 7.20 - 0.62\% & vapefest 7.61 - 0.24\% \\ \hline
-%% 	mywebcamTHIS\_IS\_A\_MENTION 7.65 - 0.23\% & interpretations 6.39 - 0.08\% & bonnaroo 6.46 - 0.08\% & agrees 5.91 - 0.13\% & musicians 6.56 - 0.16\% & duluth 7.46 - 0.14\% \\ \hline
-%% 	irs 7.57 - 0.12\% & blogengage 6.38 - 0.09\% & restrictions 6.29 - 0.86\% & pnoy 5.78 - 0.07\% & ushered 6.51 - 0.47\% & students 7.39 - 1.59\% \\ \hline
-%% \end{tabular}
-%% \end{table}
-%% \end{landscape}
-
 \section{Discussion}
+\label{s.discussion}
 
 \subsection{Relation to prior survey results}
 ``Likewise, Pearson et al. (2012) found no difference in men and women's ever-use of e-cigarettes (men: 12.6%, 95% CI 9.2-16.9; women: 10.3%, 95% CI 7.7-13.7).''
 
 Younger and older individuals appeared equally likely to have ever used e-cigarettes in the U.S., but younger individuals were more likely to ever-use them in other regions. 
 
+% Overall, approximately 11% of e-cigarette tweets were found to contain references related to smoking cessation. Cessation mentions were more frequent among commercial (11%) than among organic tweets (9%, p<0.001). \cite{huang}
+
+
 \section{Conclusion}
+\label{s.conclusion}
 
 As we could notice from our analysis the over all tweets increase over the time, but negative tweets (marketing, criticism) increases more than positive tweets. Most of tweets are negative and the positive tweets don't change much over the time, they remain around 16\% and 23\%. Most of the spikes that the Figures showed are due to a particular event during its respective month. So, we are sure that TV commercials and new campaigns are relevant and they help to make changes in the data.
-\bibliographystyle{abbrv}
-\bibliography{report}  % sigproc.bib is the name of the Bibliography in this case
+
+\section{Acknowledgments}
+This work was supported in part by the National Science Foundation under grant
+\#IIS-1526674.  Any opinions, findings and conclusions or recommendations
+expressed in this material are the authors' and do not necessarily reflect
+those of the sponsor.
+
+\bibliographystyle{abbrvnat} \bibliography{report} %
+sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
