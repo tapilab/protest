@@ -25,6 +25,16 @@ These notebooks are the main analysis of our project (the others are also import
 
 In these files we read the tweets, train models (we have two models - Logistic Regression and SGD Classifier) with the best model accuracy we predict,  generate the frequency of tweets per month by sentimen and plot the overall sentiment during the year. Also, we show n-grams and top words analysis.
 
+**Gender inference**
+
+In this file the gender is infered through the name of the user. To run this notebook it is necessary to change 2 variables  - DATA (1st Cell) = directory of the file Classified_testingTweets.csv (classified tweets)
+- DIREC (Cell #19) = directory of the file tweets.pkl (tweets with infered gender)
+
+**Age by name folder**
+
+This folder has the data necessary to predict the age of the users. To run the notebook Age Inference it is necessary to change 2 variables:
+ - DIR (2nd Cell) =  directory of the folder age_by_name
+ - DIREC (Cell #13) = directory of the file tweets.pkl
 
 **Reproducing the results**
 
