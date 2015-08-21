@@ -39,3 +39,12 @@ This folder has the data necessary to predict the age of the users. To run the n
 **Reproducing the results**
 
 In order to reproduce the results, you just need our data set and change the variable DATA which is in each first cell of each notebook that defined the directory where the data set is.
+
+In case you want to run all the steps for performing the results, you can:
+- First: run Reading and Sampling tweets.ipynb
+- Second: run First analysis on model with 2 and 3 classes 
+- Third: run Analysis on 2 and 3 classes
+- Forth: run Age by name/Age inference
+- Fifth: run Gender inference
+
+There is no order for the analysis part, you just need to create the needed files in the First step and then you will be able to run the rest, but you can run like it is specified above. 
