@@ -151,6 +151,14 @@ Social media provide a potentially useful new data source to understand emerging
                                 &                       & A homeless guy just asked me if he could bum an e-cigarette\\ \hline
 \end{tabular}
 \end{table*}
+\begin{table*}[ht!]
+\centering
+\caption{Top Coefficients of Classifier\label{t.coef}}
+\begin{tabular}{|r|p{14cm}| }
+\hline
+\input{nb/coef.tex}
+\end{tabular}
+\end{table*}
 
 
 
@@ -291,14 +299,6 @@ We next wished to classify each tweet by sentiment towards e-cigs. To do so, we 
 
 Note that our definition of {\bf positive} is a bit different from typical sentiment classification; by including tweets indicating possible usage of e-cigs, we hoped to capture general notions of popularity of e-cigs, as opposed to simply opinions about e-cigs.
 
-\begin{table*}[t]
-\centering
-\caption{Top Coefficients of Classifier\label{t.coef}}
-\begin{tabular}{|r|p{14cm}| }
-\hline
-\input{nb/coef.tex}
-\end{tabular}
-\end{table*}
 
 
 Table \ref{tab:labelsample} describes some examples of our training data with tweets, their classes and also the distribution of each class. We can see that roughly 51\% of the tweets were labeled as neutral, 14\% as negative and 35\% as positive. 
@@ -469,7 +469,7 @@ effectiveness of e-cigs and nicotine patches for cessation). We will highlight t
 
 \begin{table*}[t]
 \centering
-\caption{Significant terms by category. \label{t.coef_demo}}
+\caption{Most significant terms by category using Chi-squared tests. \label{t.coef_demo}}
 \label{tab:terms}
 \begin{tabular}{|r|p{14cm}| }
 \hline
