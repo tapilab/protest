@@ -2,6 +2,14 @@
 
 Analyze 2014-2015 protests in Brazil on Twitter.
 
+#UPDATES:
+- Done issue#14
+- Collecting users timeline from tweets mentioning foraPT (PT out)
+- Figuring out how to do issue#15
+ 
+ 
+
+
 ##Summary of Data
 
 **REST API DATA -  230,306 total tweets**
@@ -11,13 +19,14 @@ Analyze 2014-2015 protests in Brazil on Twitter.
 
 **STREAMING - 877,981 total tweets**
 - 219 tweets had the word "VemPraRua" ("ComeToTheStreet") and its derivatives
- - 123 unique users
+ - 117 unique users
   - Timeline from each of these users was collected (at maximum 3200 tweets) - 1.33GB
   
 **DATA BEFORE ELECTION (2014) - 47301 total tweets**
-- Get tweets supporting Dilma and its users
- - Collect these users' timelines
- 
+- Tweets mentioning foraPT (PT out): 309
+- Tweets mentioning foraDilma (Dilma out): 250
+- Tweets mentioning vemprarua: (198)
+
  
  
  ##Project due date ---->>> Nov 3rd
