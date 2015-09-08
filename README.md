@@ -4,7 +4,7 @@ Analyze 2014-2015 protests in Brazil on Twitter.
 
 #UPDATES:
 - Done issue#14
-- Collecting users timeline from tweets mentioning foraPT (PT out)
+- Done Collection of users' timeline from tweets mentioning foraPT (PT out)
 - Figuring out how to do issue#15
  
  
@@ -26,6 +26,9 @@ Analyze 2014-2015 protests in Brazil on Twitter.
 - Tweets mentioning foraPT (PT out): 309
 - Tweets mentioning foraDilma (Dilma out): 250
 - Tweets mentioning vemprarua: (198)
+- Number of users:
+ - Mentioning PT out - 213
+ - Mentioning Dilma out - 217
 
  
  
