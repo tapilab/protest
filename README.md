@@ -21,6 +21,7 @@ Analyze 2014-2015 protests in Brazil on Twitter.
 - 219 tweets had the word "VemPraRua" ("ComeToTheStreet") and its derivatives
  - 117 unique users
   - Timeline from each of these users was collected (at maximum 3200 tweets) - 1.33GB
+- 321 total users mentioning all keywords
   
 **DATA BEFORE ELECTION (2014) - 47301 total tweets**
 - Tweets mentioning foraPT (PT out): 309
