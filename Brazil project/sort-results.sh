@@ -1,0 +1,1 @@
+egrep -A 2 'collapse_mentions=True' Classification-Optimize-Window.ipynb    | egrep -v 'X.shape' | egrep -v '\-\-' | perl -ne 's/\",?//g; s/\\n//g; print;' | perl -ne 'chomp; if (/^\s*acc/) {/acc=(.+)\s*$/; $a = $1; print "$a\t$l\n";} else{$l = $_;}' | sort -grk 1 | less
